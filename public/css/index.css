@@ -1,0 +1,64 @@
+.detailView{min-width: 90%; display: block;}
+.container-table {
+    height: 100%;
+}
+.container-table {
+    display: table;
+}
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
+p{cursor: pointer;}
+.remove_field{ margin-top: -1cm; float: right; }
+.append{ padding-top: 2%; padding-bottom: 2%; background-color: #fafbfb; text-align: left; margin: auto;}
+#add-cat, #sel-cat{padding-top: 2%; padding-bottom: 2%; font-weight: bold; cursor: pointer; float: right;}
+.iframepdf, .iframedoc{min-width: 100%; min-height: 600px} 
+.iframeimg{max-width: 100%;}
+.iframemovie{
+  background:url(../images/load1.gif) center center no-repeat;
+ }
+.iframemusic{
+  min-width: 100%;
+  min-height: 100%;
+  background:url(../images/music3.gif) center center no-repeat;
+  background-size: 100%;
+ }
+.iframemovie{
+  min-width: 100%;
+  min-height: 100%;
+  background:url(../images/load1.gif) center center no-repeat;
+  background-size: 100%;
+ }
+ input[type="text"]{
+  position: relative;
+   font-family: calibri;
+   width: 350px;
+   padding: 10px;
+   font-size: 1.2em;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border: 1px dashed #BBB; 
+   text-align: center;
+   background-color: #DDD;
+   cursor:pointer;
+   background: url(/images/input.jpg) 96% / 15% no-repeat #eee; background-size: 33px 33px;
+}
+input[type="submit"]{
+     background-color: green;
+}
+input[type="file"]{   position: relative;   font-family: calibri;   width: 350px;   padding: 10px;   font-size: 1.2em;
+   -webkit-border-radius: 5px;   -moz-border-radius: 5px;   border: 1px dashed #BBB;    text-align: center;
+   background-color: #DDD;   cursor:pointer; background: url(/images/file.jpg) 96% / 15% no-repeat #eee; background-size: 33px 33px;}
+
+select { position: relative;   font-family: calibri;   width: 350px;  font-size: 1.2em;   -webkit-border-radius: 5px;   -moz-border-radius: 5px;
+   border: 1px dashed #BBB;    text-align: center;   background-color: #DDD;   cursor:pointer;   padding: 9px;
+  -webkit-appearance: none;  -moz-appearance: none;  appearance: none;  background: url(/images/drop.jpg) 96% / 15% no-repeat #eee;
+background-size: 33px 33px;} 
+
+@media screen and (min-width:0\0) { 
+    select {
+        background:none;
+        padding: 5px;
+    }
+}
