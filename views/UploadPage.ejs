@@ -1,0 +1,39 @@
+<div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="col-md-6 col-md-offset-4" style="background: white">
+          <h3>UPLOAD FILES</h3>
+          <span id="sel-hide-cat">
+            
+          <select class="select">
+            <option value="default">Select Category</option>
+              <% documentscategory.forEach(function(documentscategory){%>
+                <option value="<%= documentscategory.catname %>"><%= documentscategory.catname %></option>
+              <%})%>
+          </select></span>
+          <button type="button" id="add-cat" class="btn">Add New Category</button>
+
+          <span id="add-hide-cat"><input type="text" name="category" id="cat-write" placeholder="Enter category name" autocomplete="off"></span>
+          <button type="button" id="sel-cat" class="btn">Select Category</button>
+          
+          <hr>
+              <button class="add_field_button btn btn-primary">Attach More Files</button>
+               <p class="errmsg">Only mp3, mp4, pdf, doc, docx, jpg, jpeg, png files are allowed</p>
+              <form method="post" action="/uploadsinglefile" id="uploadform" enctype="multipart/form-data" >
+                <input type="hidden" name="finalcategory" id="finalcategory">
+                  <div class="input_fields_wrap">
+                    <div class="append">
+                      <input type="file" name="file" class="file" id="file">
+                      <input type="hidden" name="ext" class="ext">
+                      <button type="button" class="remove_field btn btn-danger"><i class="fa fa-remove"></i> Remove</button>
+                      <p class="errmsg"></p>
+                    </div>
+                  </div>
+                  <hr>
+                <input type="submit" style="display: none;" value="Submit File" id="finalSubmit">
+              </form>
+              <input type="submit" name="submit" id="checkForm" class="btn btn-primary" value="Submit File">
+              <span id="submitloader"></span>
+              <span class="errmsg" id="submiterrmsg"></span>
+        </div>
+    </div>
+</div>
