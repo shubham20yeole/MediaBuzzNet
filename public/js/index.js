@@ -3,6 +3,7 @@ $(document).ready(function() {
     $("#viewButton").hide();
     $("#viewPage").show();
     $("#uploadPage").hide();
+    $("#dropdown-menu").html('appendItems');
 });
 
 $(document).on("click","#postButton, #viewButton",function() {
@@ -138,7 +139,28 @@ $(document).on("click",".itemname", function(){
         $("#iframediv").html(appendString);
         $("#infodiv").html();
         $("#load1").html('');
-
     },500);
+})
+
+$(document).on("keyup","#search", function(){
+    var keyword = $(this).val();
+    $("#searchLoad").html('<img src="images/load.gif" width="25" height="25"> Searching...');
+    $.post( "/searchDocument", { keyword: keyword})
+    .done(function(documents){
+    setTimeout(function(){
+        var appendItems = "";
+        for(i=0;i<documents.length;i++){
+            appendItems = '<li>'+
+            '<div class="row"><div class="col-sm-4"><img src="'+documents[i].thumbnail+'" width="80" height="80"></div>'+
+            '<div class="col-sm-8">'+documents[i].name+
+            '<br>'+documents[i].datetime+' '+
+            ' '+documents[i].category+' '+
+            '<br><a href="'+documents[i].link+'" target="_blank">CLICK TO OPEN IN NEW TAB</a></div></div><br></li>'+
+            ' '+ appendItems;
+        }
+        $("#searchResult").html(appendItems);
+        $("#searchLoad").html('<img src="images/done.jpg" width="25" height="25"> Search succeeded');
+        },500);
+    })
 })
 

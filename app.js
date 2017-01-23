@@ -196,7 +196,16 @@ app.post('/upload', function(req, res){
 app.post('/getItems', function(req, res){   
   var catname = req.body.catname;
   db.documents.find({category: catname}, function (err, items) {
+    console.log(items.length);
     res.send(items);    
+  });
+});
+
+app.post('/searchDocument', function(req, res) {
+  var keyword = req.body.keyword;
+   db.documents.find({ name: {'$regex': keyword, '$options' : 'i'} }, function (err, documents) {
+      console.log(documents.length);
+    res.send(documents);
   });
 });
 

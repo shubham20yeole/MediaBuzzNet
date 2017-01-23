@@ -48,6 +48,19 @@ p{cursor: pointer; color: blue; }
    cursor:pointer;
    background: url(/images/input.jpg) 96% / 15% no-repeat #eee; background-size: 33px 33px;
 }
+#searchResult{padding: 2}
+#search{ width: 340px;
+  -webkit-transition: width 1s ease;
+  -moz-transition: width 1s ease;
+  -o-transition: width 1s ease;
+  -ms-transition: width 1s ease;
+  transition: width 1s ease;
+   background: url(/images/search.jpg) 96% / 15% no-repeat #eee; background-size: 33px 33px;
+}
+.widthinc{width: 360px;}
+#search:hover{ width: 360px;}
+.dropdown-menu{ width: 360px; padding: 2%;}
+
 input[type="submit"]{
      background-color: green;
 }
@@ -79,4 +92,7 @@ background-size: 33px 33px;}
 ::-webkit-scrollbar-thumb {
     background: #84b3c7
 
+}
+.show-on-hover:hover > ul.dropdown-menu {
+    display: block;    
 }
