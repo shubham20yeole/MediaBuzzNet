@@ -150,7 +150,8 @@ $(document).on("click",".itemname", function(){
     task = "MBN_ItemName";
     longLatCurrent();
     var frame = $(this).next('input').val();
-    frame = frame.replace("muted='true'", "");
+    frame = frame.replace("<video controls class='iframemovie'>", "<video controls class='iframemovie' autoplay='true'>");
+    frame = frame.replace("<video controls class='iframemusic'>", "<video controls class='iframemusic' autoplay='true'>");
     var datetime = $(this).next('input').next('input').val();
     var category = $(this).next().next().next().val();
     var name = $(this).next().next().next().next().val();
