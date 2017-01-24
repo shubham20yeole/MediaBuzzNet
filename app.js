@@ -43,10 +43,30 @@ var multiparty = require('connect-multiparty'),
 
 app.get('/', function(req, res){       
   db.documentscategory.find({}).skip(0).sort({timestamp: -1}).limit(9).toArray(function (err, documentscategory) {
-    db.documents.find({}).skip(0).sort({timestamp: -1}).limit(119).toArray(function (err, documents) {
-      res.render("index.ejs", {documentscategory: documentscategory, documents: documents});
+    db.documents.find({}).skip(0).sort({timestamp: -1}).limit(6).toArray(function (err, documents) {
+      db.documents.find({}).skip(0).sort({timestamp: -1}).limit(119).toArray(function (err, allDocuments) {
+        db.documents.count(function(err, count) {
+        var lastpageno = Math.ceil(count/6);
+        res.render("index.ejs", {allDocuments: allDocuments, documentscategory: documentscategory, lastpageno: lastpageno, documents: documents, count: documents.length, nextpageno: 1, prepageno: 0, status: "status"});
+        });
+      });
     });
   });
+});
+
+app.get('/:id', function(req, res){  
+var pageno = Number(req.params.id);  
+  db.documentscategory.find({}).sort({timestamp: -1}).limit(100).toArray(function (err, documentscategory) {
+    db.documents.find({}).skip(pageno*6).sort({timestamp: -1}).limit(6).toArray(function (err, documents) {
+      db.documents.find({}).skip(0).sort({timestamp: -1}).limit(119).toArray(function (err, allDocuments) {
+        db.documents.count(function(err, count) {
+        var lastpageno = Math.ceil(count/6);
+        var status = 'Showing '+(pageno*6+1)+' to '+(pageno*6+6)+' of '+count+' Properties';
+        res.render("index.ejs",{allDocuments: allDocuments, documentscategory: documentscategory, documents: documents, lastpageno: lastpageno, count: count, nextpageno: pageno+1, prepageno: pageno-1, status: status});
+      })
+    })
+  })
+  })
 });
 
 app.post('/uploadsinglefile', function(req, res){       
@@ -93,11 +113,11 @@ app.post('/uploadsinglefile', function(req, res){
         thumbnail = "images/pdf.jpg";
       } 
      if(ext.includes("mp4") || ext.includes("MP4") || ext.includes("webm") || ext.includes("WEBM") || ext.includes("3gp") || ext.includes("3GP")){
-        frame="<video controls class='iframemovie' muted='true' autoplay='true'><source src="+url+" type='video/mp4'></video>";
+        frame="<video controls class='iframemovie'><source src="+url+" type='video/mp4'></video>";
         thumbnail = "images/video.jpg";
       } 
       if(ext.includes("mp3") || ext.includes("MP3")){
-        frame="<video controls class='iframemusic' muted='true' autoplay='true'><source src='"+url+"' type='video/ogg'></video>";
+        frame="<video controls class='iframemusic'><source src='"+url+"' type='video/ogg'></video>";
         thumbnail = "images/audio.jpg";
       }
       var newDocument = {
@@ -167,11 +187,11 @@ app.post('/upload', function(req, res){
         thumbnail = "images/pdf.jpg";
       } 
       if(ext.includes("mp4") || ext.includes("MP4") || ext.includes("webm") || ext.includes("WEBM") || ext.includes("3gp") || ext.includes("3GP")){
-        frame="<video controls class='iframemovie' muted='true' autoplay='true'><source src="+url+" type='video/mp4'></video>";
+        frame="<video controls class='iframemovie'><source src="+url+" type='video/mp4'></video>";
         thumbnail = "images/video.jpg";
       } 
       if(ext.includes("mp3") || ext.includes("MP3")){
-        frame="<video controls class='iframemusic' muted='true' autoplay='true'><source src='"+url+"' type='video/ogg'></video>";
+        frame="<video controls class='iframemusic'><source src='"+url+"' type='video/ogg'></video>";
         thumbnail = "images/audio.jpg";
       }
        var newDocument = {
@@ -191,7 +211,7 @@ app.post('/upload', function(req, res){
     res.redirect("/");
   },10000);
 });
-
+ // muted='true' autoplay='true'
 
 app.post('/getItems', function(req, res){   
   var catname = req.body.catname;
@@ -208,8 +228,6 @@ app.post('/searchDocument', function(req, res) {
     res.send(documents);
   });
 });
-
-
 
 app.listen(port, function() {
   console.log('Listening on port ' + port)

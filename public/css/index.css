@@ -96,3 +96,22 @@ background-size: 33px 33px;}
 .show-on-hover:hover > ul.dropdown-menu {
     display: block;    
 }
+.scrollable{
+  overflow:scroll; max-height: 600px;
+}
+.detailViewHead{padding: 1%; border-radius: 10px 0px 0px 10px; background-color: black}
+
+
+#mygithubproject{font-size: 10px}
+.projecttype{font-size: 10px}
+.url{font-size: 10px}
+#goTop{
+    padding:5px;
+    position:fixed;
+    bottom:-100px;
+    right:10px;
+    cursor: pointer;
+}
+.addPa{padding: 9%;}
+#scroll{font-size: 4em;}
+#scrollText{font-size: 10px}

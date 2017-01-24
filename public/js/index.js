@@ -4,6 +4,21 @@ $(document).ready(function() {
     $("#viewPage").show();
     $("#uploadPage").hide();
     $("#dropdown-menu").html('appendItems');
+    // prepageno nextpageno lastpageno
+    var pre = $(".prehide").val();
+    var next = $(".nexthide").val();
+    var last = $(".lasthide").val();
+    $(".lastpageno").attr("href", last-1)
+    if(pre==="-1"){
+        $(".paginationmsg").text("Page no: First Page.")
+        $(".prepageno").attr("href", "#")
+    }
+    if(next===last){
+        $(".paginationmsg").text("Page no: Last Page.")
+        $(".nextpageno").attr("href", "#")
+    }else{
+        $(".paginationmsg").text("Page no: "+next+".")
+    }
 });
 
 $(document).on("click","#postButton, #viewButton",function() {
@@ -130,7 +145,14 @@ $(document).on("click",".itemname", function(){
     var category = $(this).next().next().next().val();
     var name = $(this).next().next().next().next().val();
     var link = $(this).next().next().next().next().next().val();
-    $("#load1").html('<img src="images/load.gif">');
+    $('html, body').stop().animate({
+           scrollTop: 0
+        }, 500, function() {
+           $('#goTop').stop().animate({
+               bottom: '-100px'    
+           }, 500);
+        });
+    $("#load1").html('<img src="images/load.gif"  width="50" height="50"> Searching ... ');
     setTimeout(function(){
         var appendString = frame+'<div class="mediasec"><p><span><b>Category:</b> '+category+' </span>'+
               '<span style="float: right;"><b>Date&Time:</b> '+datetime+'</span></p>'+
@@ -139,16 +161,18 @@ $(document).on("click",".itemname", function(){
         $("#iframediv").html(appendString);
         $("#infodiv").html();
         $("#load1").html('');
-    },500);
+    },1500);
 })
 
 $(document).on("keyup","#search", function(){
     var keyword = $(this).val();
-    $("#searchLoad").html('<img src="images/load.gif" width="25" height="25"> Searching...');
+    if(keyword==="") keyword = "hello";
+    $(".searchLoad").html('<img src="images/load.gif" width="25" height="25"> Searching...');
     $.post( "/searchDocument", { keyword: keyword})
     .done(function(documents){
     setTimeout(function(){
         var appendItems = "";
+        if(documents.length==0) appendItems = "Whoops! Nothing Found!"
         for(i=0;i<documents.length;i++){
             appendItems = '<li>'+
             '<div class="row"><div class="col-sm-4"><img src="'+documents[i].thumbnail+'" width="80" height="80"></div>'+
@@ -159,8 +183,31 @@ $(document).on("keyup","#search", function(){
             ' '+ appendItems;
         }
         $("#searchResult").html(appendItems);
-        $("#searchLoad").html('<img src="images/done.jpg" width="25" height="25"> Search succeeded');
+        $(".searchLoad").html('<img src="images/done.jpg" width="25" height="25"> Search succeeded');
         },500);
     })
 })
 
+$(document).ready(function() {
+    $(window).scroll(function() {
+        if($(this).scrollTop() > 100){
+            $('#goTop').stop().animate({
+                bottom: '20px'    
+                }, 500);
+        }
+        else{
+            $('#goTop').stop().animate({
+               bottom: '-100px'    
+            }, 500);
+        }
+    });
+    $('#goTop').click(function() {
+        $('html, body').stop().animate({
+           scrollTop: 0
+        }, 500, function() {
+           $('#goTop').stop().animate({
+               bottom: '-100px'    
+           }, 500);
+        });
+    });
+});    

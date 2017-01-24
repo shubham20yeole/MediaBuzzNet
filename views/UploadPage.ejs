@@ -1,9 +1,12 @@
 <div class="container container-table">
     <div class="row vertical-center-row">
         <div class="col-md-6 col-md-offset-4" style="background: white">
-          <h3>UPLOAD FILES</h3>
+          
+          <div class="panel panel-primary">
+      <div class="panel-heading">UPLOAD FILES</div>
+      <div class="panel-body"> 
           <span id="sel-hide-cat">
-            
+          
           <select class="select">
             <option value="default">Select Category</option>
               <% documentscategory.forEach(function(documentscategory){%>
@@ -34,6 +37,8 @@
               <input type="submit" name="submit" id="checkForm" class="btn btn-primary" value="Submit File">
               <span id="submitloader"></span>
               <span class="errmsg" id="submiterrmsg"></span>
+              </div>
+    </div>
         </div>
     </div>
 </div>

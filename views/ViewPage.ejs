@@ -1,10 +1,10 @@
 <div class="container detailView">
   <div class="row">
     <div class="col-sm-1">
-      <h3>Category</h3>
+      <h3>Group</h3>
       <div class="scrollableNotification">     
         <% documentscategory.forEach(function(documentscategory){%>
-          <p class="cat-p-tag" id="<%= documentscategory.catname %>"><%= documentscategory.catname %> <%= documentscategory.size %></p>
+          <p class="cat-p-tag" id="<%= documentscategory.catname %>"><%= documentscategory.catname %>  ( <%= documentscategory.size %> )</p>
         <%})%>
       </div>
     </div>
@@ -13,21 +13,31 @@
       <div id="load"></div>
     <div class="scrollableNotification">     
      <div id="items">
-         <% documents.forEach(function(documents){%>
+         <% allDocuments.forEach(function(allDocuments){%>
           <div class="row">
-              <p class="itemname"><%= documents.name %></p>
-              <input type="hidden" value="<%= documents.frame %>">
-              <input type="hidden" value="<%= documents.datetime %>">
-              <input type="hidden" value="<%= documents.category %>">
-              <input type="hidden" value="<%= documents.name %>">
-              <input type="hidden" value="<%= documents.link %>">
+              <p class="itemname"><%= allDocuments.name %></p>
+              <input type="hidden" value="<%= allDocuments.frame %>">
+              <input type="hidden" value="<%= allDocuments.datetime %>">
+              <input type="hidden" value="<%= allDocuments.category %>">
+              <input type="hidden" value="<%= allDocuments.name %>">
+              <input type="hidden" value="<%= allDocuments.link %>">
             </div>
         <%})%>
       </div>
     </div>
     </div>
     <div class="col-sm-8">
-      <h3>TIMELINE</h3>
+      <ul class="pager">
+        <li><span>TIMELINE</span></li>
+        <li><a href="0">First</a></li>
+        <li><a href="<%=prepageno%>" class="prepageno">Previous</a></li>
+        <li><a href="<%=nextpageno%>" class="nextpageno">Next</a></li>
+        <li><a href="<%=lastpageno%>" class="lastpageno">Last</a></li>
+        <li><span class="paginationmsg"></span></li>
+        <li><input type="hidden" class="prehide" value="<%=prepageno%>"></li>
+        <li><input type="hidden" class="nexthide" value="<%=nextpageno%>"></li>
+        <li><input type="hidden" class="lasthide" value="<%=lastpageno%>"></li>
+      </ul>
       <div id="load1"></div>        
       <div id="iframediv"></div>
       <p id="infodiv"></p>
@@ -50,22 +60,33 @@
         <hr>
         <%})%>
         </div>
+        <ul class="pager">
+        <li><span>TIMELINE</span></li>
+        <li><a href="0">First</a></li>
+        <li><a href="<%=prepageno%>" class="prepageno">Previous</a></li>
+        <li><a href="<%=nextpageno%>" class="nextpageno">Next</a></li>
+        <li><a href="<%=lastpageno%>" class="lastpageno">Last</a></li>
+        <li><span class="paginationmsg"></span></li>
+        <li><input type="hidden" class="prehide" value="<%=prepageno%>"></li>
+        <li><input type="hidden" class="nexthide" value="<%=nextpageno%>"></li>
+        <li><input type="hidden" class="lasthide" value="<%=lastpageno%>"></li>
+      </ul>
     </div>
      <div class="col-sm-2">
       <h3>NOTIFICATION</h3>
       <div class="scrollableNotification">     
-        <% documents.forEach(function(documents){%>
+        <% allDocuments.forEach(function(allDocuments){%>
           <div class="row">
             <div class="col-sm-5">
-              <img class="img-thumbnail" src="<%= documents.thumbnail %>" width="100" height="100">
+              <img class="img-thumbnail" src="<%= allDocuments.thumbnail %>" width="100" height="100">
             </div>
             <div class="col-sm-7">
-              <p class="itemname"><%= documents.name %></p>
-              <input type="hidden" value="<%= documents.frame %>">
-              <input type="hidden" value="<%= documents.datetime %>">
-              <input type="hidden" value="<%= documents.category %>">
-              <input type="hidden" value="<%= documents.name %>">
-              <input type="hidden" value="<%= documents.link %>">
+              <p class="itemname"><%= allDocuments.name %></p>
+              <input type="hidden" value="<%= allDocuments.frame %>">
+              <input type="hidden" value="<%= allDocuments.datetime %>">
+              <input type="hidden" value="<%= allDocuments.category %>">
+              <input type="hidden" value="<%= allDocuments.name %>">
+              <input type="hidden" value="<%= allDocuments.link %>">
             </div>
           </div>
         <%})%>
