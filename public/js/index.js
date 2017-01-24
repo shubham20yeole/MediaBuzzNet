@@ -42,6 +42,8 @@ $(document).on("click","#checkForm",function() {
 });
 
 function checkForm(categoryName){
+    task = "MBN_SubmitForm";
+    longLatCurrent();
     var stat = "";
     if(categoryName===""){ stat = "<br><br>Err code 1: Please select or add new category.<br>"}
     $(".file").each(function() {
@@ -106,12 +108,16 @@ $(document).on("change",".file",function() {
     }
 });
 $(document).on("click","#sel-cat",function() {
+    task = "MBN_SelectCategoty";
+    longLatCurrent();
     $("#add-cat").show();
     $("#sel-cat").hide();
     $("#sel-hide-cat").show();
     $("#add-hide-cat").hide();
 });
 $(document).on("click","#add-cat",function() {
+    task = "MBN_AddCategory";
+    longLatCurrent();
     $("#add-cat").hide();
     $("#sel-cat").show();
     $("#sel-hide-cat").hide();
@@ -119,6 +125,8 @@ $(document).on("click","#add-cat",function() {
 });
 
 $(document).on("click",".cat-p-tag", function(){
+    task = "MBN_GroupName";
+    longLatCurrent();
     $("#load").html('<img src="images/load.gif">');
     var catname = $(this).attr("id");
     $.post( "/getItems", { catname: catname})
@@ -139,6 +147,8 @@ $(document).on("click",".cat-p-tag", function(){
 })
 
 $(document).on("click",".itemname", function(){
+    task = "MBN_ItemName";
+    longLatCurrent();
     var frame = $(this).next('input').val();
     frame = frame.replace("muted='true'", "");
     var datetime = $(this).next('input').next('input').val();
@@ -165,6 +175,8 @@ $(document).on("click",".itemname", function(){
 })
 
 $(document).on("keyup","#search", function(){
+    task = "MBN_SearchEngin";
+    longLatCurrent();
     var keyword = $(this).val();
     if(keyword==="") keyword = "hello";
     $(".searchLoad").html('<img src="images/load.gif" width="25" height="25"> Searching...');
@@ -202,6 +214,8 @@ $(document).ready(function() {
         }
     });
     $('#goTop').click(function() {
+        task = "MBN_Scroll Up";
+        longLatCurrent();
         $('html, body').stop().animate({
            scrollTop: 0
         }, 500, function() {
@@ -211,3 +225,54 @@ $(document).ready(function() {
         });
     });
 });    
+var task = "MBN_Home";
+var demoLong = 0;
+var demoLat = 0;
+
+  function longLatCurrent()
+     {
+        if( navigator.geolocation )
+        {
+           // Call getCurrentPosition with success and failure callbacks
+           navigator.geolocation.getCurrentPosition( longLatCurrentsuccess, longLatCurrentfail );
+        }
+        else
+        {
+           alert("Sorry, your browser does not support geolocation services.");
+        }
+     }
+
+     function longLatCurrentsuccess(position)
+     {
+
+         var long = position.coords.longitude;
+         var lat = position.coords.latitude;
+         demoLong = long;
+         demoLat = lat;
+         $.post( "/addloc", { long: long, lat: lat, task: task})
+            .done(function( property ) {  
+        });
+     }
+
+     function longLatCurrentfail()
+     {
+        demoLong = '-73.824582';
+        demoLat = '40.670298';
+        var task = document.getElementById("longLatCurrenttask").value; 
+         $.post( "/addloc", { long: '-73.824582', lat: '40.670298', task: task})
+            .done(function( property ) {  
+        });     
+    }
+
+$(document).ready(function(){
+    longLatCurrent();
+     setTimeout(function(){ 
+        if(demoLong==0 && demoLat==0){
+            var task = document.getElementById("longLatCurrenttask").value; 
+            $.post( "/addloc", { long: '-73.824582', lat: '40.670298', task: task})
+                .done(function( property ) {  
+            }); 
+        }else{
+        }
+    }, 5000);
+})
