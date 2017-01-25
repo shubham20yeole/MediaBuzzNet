@@ -1,4 +1,4 @@
-**Welcome to SHUBHAM RESUME FILTER project.**
+**Welcome to MediaBuzzNet project.**
 
 ****Project URL: http://mediabuzznet.herokuapp.com/****
 
