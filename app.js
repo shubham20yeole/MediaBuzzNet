@@ -280,7 +280,7 @@ app.listen(port, function() {
 })
 
 app.post('/saveurl', function(req, res){       
-  var urls = req.body.urls;
+  var urls = req.body.urls.split("%20").join(" ");
   var date = new Date();
   var datetime = (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear()+" ("+date.getHours()+":"+date.getMinutes()+")";
   var timestamp = new Date().valueOf();
@@ -334,3 +334,8 @@ function getGif() {
 
     return gif;
 }
+
+// var tt = "http://songspkdownloads.in/copy6/Closer%20-%20320Kbps%20-%20(www.songspksongspk.cc).mp3";
+// console.log(tt);
+// var ttt = tt.split("%20").join(" ");
+// console.log(ttt)
