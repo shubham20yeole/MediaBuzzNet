@@ -11,6 +11,7 @@
     display: table-cell;
     vertical-align: middle;
 }
+#submiterrmsg1{color: red;}
 .limitchar{
   width: 10ch;
   overflow: hidden;

@@ -78,7 +78,9 @@ function checkForm(categoryName){
       // $(".lat").each(function() {
 $(document).on("click","#checkForm1",function() {
     var finalcategory = $("#finalcategory1").val();
-    var error = checkForm1(finalcategory);
+    var songname = $("#songname").val();
+
+    var error = checkForm1(finalcategory, songname);
     if(x1x1===0){error = error + "<br>Atleast fill one input field<br>"}
 
    if(error===""){
@@ -91,9 +93,10 @@ $(document).on("click","#checkForm1",function() {
    }
 });
 
-function checkForm1(categoryName){
+function checkForm1(categoryName, songname){
     var errormsg = "";
-    if(categoryName==="") { errormsg = "<br><br>Err code 1: Please select category.<br>"}
+    if(categoryName==="") { errormsg = errormsg + "<br><br>Err code 1: Please select category.<br>"}
+    if(songname==="") { errormsg = errormsg + "Err code 3: Please add media name.<br>"}
 
     $(".urls").each(function() {
         var link = $(this).val();

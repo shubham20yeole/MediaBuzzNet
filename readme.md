@@ -1,6 +1,6 @@
 **Welcome to SHUBHAM RESUME FILTER project.**
 
-****Project URL: http://resumeselector.herokuapp.com/****
+****Project URL: http://mediabuzznet.herokuapp.com/****
 
 1. create a folder for your app.
 2. open node cmd and go to that folder.
