@@ -8,17 +8,17 @@ var expressValidator = require('express-validator');
 var mongojs = require('mongojs')
 var mongodb = require('mongodb')
 var collections = ["locations", "documentscategory", "documents"]
-var db = mongojs('mongodb://shubhamyeole.cs:shubhamyeole.cs@ds163387.mlab.com:63387/paceteam3', collections)
+var db = mongojs('mongodb://********:***********@ds163387.mlab.com:*******/***********', collections)
 var app = express();
 var ObjectId = mongojs.ObjectId;
 var passport = require("passport")
 var JSFtp = require("jsftp");
 var fs = require('fs');
 var config = {
-  host: 'ftp.byethost7.com',
+  host: 'ftp.******.com',
   port: 21,
-  user: 'b8_19205430',
-  password: 'Shubham4194'
+  user: '**********',
+  password: '*************'
 }
 // View Engine
 app.set('view engine', 'ejs');
