@@ -113,12 +113,12 @@ app.post('/uploadsinglefile', function(req, res){
         thumbnail = "images/pdf.jpg";
       } 
      if(ext.includes("mp4") || ext.includes("MP4") || ext.includes("webm") || ext.includes("WEBM") || ext.includes("3gp") || ext.includes("3GP")){
-        frame="<video controls class='iframemovie'><source src="+url+" type='video/mp4'></video>";
+        frame="<video controls class='iframemovie'><source src='"+url+"' type='video/mp4'></video>";
         thumbnail = "images/video.jpg";
       } 
       if(ext.includes("mp3") || ext.includes("MP3")){
-        frame="<video controls class='iframemusic'><source src='"+url+"' type='video/ogg'></video>";
-        thumbnail = "images/audio.jpg";
+        frame="<video controls style='background:url("+getGif()+") center center no-repeat;  background-size: 100%; min-width: 100%; min-height: 100%'><source src='"+url+"' type='video/mp4'></video>";
+        thumbnail = getImage();
       }
       var newDocument = {
         name: file.originalFilename,
@@ -187,7 +187,7 @@ app.post('/upload', function(req, res){
         thumbnail = "images/pdf.jpg";
       } 
       if(ext.includes("mp4") || ext.includes("MP4") || ext.includes("webm") || ext.includes("WEBM") || ext.includes("3gp") || ext.includes("3GP")){
-        frame="<video controls class='iframemovie'><source src="+url+" type='video/mp4'></video>";
+        frame="<video controls class='iframemovie'><source src='"+url+"' type='video/mp4'></video>";
         thumbnail = "images/video.jpg";
       } 
       if(ext.includes("mp3") || ext.includes("MP3")){
