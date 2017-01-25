@@ -7,6 +7,11 @@ $(document).ready(function() {
     $("#dropdown-menu").html('appendItems');
     // prepageno nextpageno lastpageno
     // uploadsinglefile
+    $("#load1").html('<center><img src="images/hload.gif">');
+
+    setTimeout(function(){ 
+    $("#load1").html('');
+    }, 5000);
     var pre = $(".prehide").val();
     var next = $(".nexthide").val();
     var last = $(".lasthide").val();
@@ -29,6 +34,7 @@ $(document).on("click","#postButton",function() {
     $(".uploadfiles").show();
     $(".saveurls").hide();
     $(".myprojects").hide();
+    $(".modal-title").text("UPLOAD MEDIA");
 });
 
 $(document).on("click","#saveurl",function() {
@@ -36,6 +42,7 @@ $(document).on("click","#saveurl",function() {
     $(".uploadfiles").hide();
     $(".saveurls").show();
     $(".myprojects").hide();
+    $(".modal-title").text("SAVE URL");
 });
 
 $(document).on("click","#myprojects",function() {
@@ -43,6 +50,7 @@ $(document).on("click","#myprojects",function() {
     $(".uploadfiles").hide();
     $(".saveurls").hide();
     $(".myprojects").show();
+    $(".modal-title").text("VISIT MY OTHER PROJECTS");
 });
 
 $(document).on("click","#checkForm",function() {
@@ -241,7 +249,7 @@ $(document).on("click",".itemname", function(){
     $("#load1").html('<center><img src="images/hload.gif"> Searching ... </center>');
     setTimeout(function(){
         $("video").prop('muted', true); //mute
-
+  
         var appendString = frame+'<div class="mediasec"><p><span><b>Category:</b> '+category+' </span>'+
               '<span style="float: right;"><b>Date&Time:</b> '+datetime+'</span></p>'+
               '<p><b>Media Name:</b> '+name+'</p>'+

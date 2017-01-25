@@ -20,6 +20,7 @@
   font-size: 17px;
   letter-spacing: 1px;
 }
+.modal-title{ letter-spacing: 3px; font-weight: bold;}
 .limitchar::after { 
 }
 .left{float: left}

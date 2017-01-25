@@ -191,8 +191,8 @@ app.post('/upload', function(req, res){
         thumbnail = "images/video.jpg";
       } 
       if(ext.includes("mp3") || ext.includes("MP3")){
-        frame="<video controls class='iframemusic'><source src='"+url+"' type='video/ogg'></video>";
-        thumbnail = "images/audio.jpg";
+        frame="<video controls style='background:url("+getGif()+") center center no-repeat;  background-size: 100%; min-width: 100%; min-height: 100%'><source src='"+url+"' type='video/mp4'></video>";
+        thumbnail = getImage();
       }
        var newDocument = {
         name: file[i].originalFilename,
@@ -284,7 +284,7 @@ app.post('/saveurl', function(req, res){
   var date = new Date();
   var datetime = (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear()+" ("+date.getHours()+":"+date.getMinutes()+")";
   var timestamp = new Date().valueOf();
-  var extension = req.body.ext;
+  var songname = req.body.songname;
   var category = req.body.finalcategory1;
   console.log("Category: "+category);
   db.documentscategory.findOne({ 'catname': category}, function (err, catObject) {
@@ -302,7 +302,7 @@ app.post('/saveurl', function(req, res){
     var gif = getGif(); 
     frame="<video controls style='background:url("+gif+") center center no-repeat;  background-size: 100%; min-width: 100%; min-height: 100%'><source src='"+urls+"' type='video/mp4'></video>";
        var newDocument = {
-        name: "MediaMusic",
+        name: songname,
         frame: frame,
         link: urls,
         datetime: datetime,
@@ -319,21 +319,18 @@ app.post('/saveurl', function(req, res){
 });
 
 function getImage() {
-    var x = Math.floor((Math.random() * 4) + 1);
+    var x = Math.floor((Math.random() * 10) + 1);
     var thumbnail = "";
     if(x===1){thumbnail = "images/audio.jpg"}
-    if(x===2){thumbnail = "images/audio2.jpg"}
-    if(x===3){thumbnail = "images/audio3.jpg"}
-    if(x===4){thumbnail = "images/audio4.jpg"}
+    else{thumbnail = "images/audio"+x+".jpg"}
     return thumbnail;
 }
 
 function getGif() {
-    var x = Math.floor((Math.random() * 4) + 1);
+    var x = Math.floor((Math.random() * 10) + 1);
     var gif = "";
     if(x===1){gif = "images/audiogif.gif"}
-    if(x===2){gif = "images/audio2gif.gif"}
-    if(x===3){gif = "images/audio3gif.gif"}
-    if(x===4){gif = "images/audio4gif.gif"}
+    else{gif = "images/audio"+x+"gif.gif"}
+
     return gif;
 }
