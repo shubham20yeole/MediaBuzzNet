@@ -172,13 +172,13 @@ $(document).on("keyup","#cat-write",function() {
     $("#finalcategory").val(cate);
 });
 
-var errmsg = "Only mp3, mp4, pdf, doc, docx, jpg, jpeg, png files are allowed";
+var errmsg = "Only mp3, mp4, pdf, doc, docx, jpg, jpeg, png, gif files are allowed";
 
 $(document).on("change",".file",function() { 
     var file = $(this).val();
     var ext = file.split('.').pop();
     var count = 0;
-    if(ext==="mp3" || ext==="MP3" || ext==="mp4" || ext==="MP4" || ext==="pdf" || ext==="PDF" || ext==="doc" || ext==="DOC" || ext==="docx" || ext==="DOCX"  || ext==="jpg" || ext==="JPG" || ext==="jpeg" || ext==="JPEG" || ext==="png" || ext==="PNG"){
+    if(ext==="gif" || ext==="GIF" || ext==="mp3" || ext==="MP3" || ext==="mp4" || ext==="MP4" || ext==="pdf" || ext==="PDF" || ext==="doc" || ext==="DOC" || ext==="docx" || ext==="DOCX"  || ext==="jpg" || ext==="JPG" || ext==="jpeg" || ext==="JPEG" || ext==="png" || ext==="PNG"){
         $(this).next('input').val(ext);
         $(this).next().next().next().text("");
     }else{

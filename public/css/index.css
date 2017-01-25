@@ -133,7 +133,7 @@ background-size: 33px 33px;}
     right:10px;
     cursor: pointer;
 }
-.addPa{padding: 10%;}
+.addPa{padding: 4%; margin-top: 10px}
 #websitename{color: #a0a0a0; font-size: 2em; font-weight: bold}
 #scroll{font-size: 4em;}
 #websitename{background-color: black; letter-spacing: 5px; font-size: 10px}

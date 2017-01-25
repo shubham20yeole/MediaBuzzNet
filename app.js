@@ -104,7 +104,7 @@ app.post('/uploadsinglefile', function(req, res){
         frame="<iframe class='iframedoc' src='http://docs.google.com/viewer?url="+url+"?>&embedded=true'></iframe>";
         thumbnail = "images/word.jpg";
       }
-      if(ext.includes("jpg") || ext.includes("jpeg") || ext.includes("png") || ext.includes("JPG") || ext.includes("JPEG") || ext.includes("PNG")){
+      if(ext.includes("gif") || ext.includes("GIF") || ext.includes("jpg") || ext.includes("jpeg") || ext.includes("png") || ext.includes("JPG") || ext.includes("JPEG") || ext.includes("PNG")){
         frame="<img class='iframeimg' src='"+url+"'>";
         thumbnail = url;
       }
@@ -178,10 +178,11 @@ app.post('/upload', function(req, res){
         frame="<iframe class='iframedoc' src='http://docs.google.com/viewer?url="+url+"?>&embedded=true'></iframe>";
         thumbnail = "images/word.jpg";
       }
-      if(ext.includes("jpg") || ext.includes("jpeg") || ext.includes("png") || ext.includes("JPG") || ext.includes("JPEG") || ext.includes("PNG")){
+      if(ext.includes("gif") || ext.includes("GIF") || ext.includes("jpg") || ext.includes("jpeg") || ext.includes("png") || ext.includes("JPG") || ext.includes("JPEG") || ext.includes("PNG")){
         frame="<img class='iframeimg' src='"+url+"'>";
         thumbnail = url;
       }
+
       if(ext.includes("pdf") || ext.includes("PDF")){
         frame="<iframe class='iframepdf' src='"+url+"'></iframe>";
         thumbnail = "images/pdf.jpg";
