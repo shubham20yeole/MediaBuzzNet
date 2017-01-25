@@ -1,0 +1,39 @@
+<div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="col-md-6 col-md-offset-1" style="background: white">
+          
+          <div class="">
+      <div class="panel-heading">UPLOAD FILES</div>
+      <div class=""> 
+          <span id="sel-hide-cat">
+          
+          <select class="select1">
+            <option value="default">Select Category</option>
+              <% documentscategory.forEach(function(documentscategory){%>
+                <option value="<%= documentscategory.catname %>"><%= documentscategory.catname %></option>
+              <%})%>
+          </select></span>
+          <hr>
+<!--               <button class="add_field_button1 btn btn-primary">Attach More Files</button>
+ -->               <p class="errmsg">Only mp3 file links are allowed</p>
+              <form method="post" action="/saveurl" enctype="multipart/form-data" >
+                <input type="hidden" name="finalcategory1" id="finalcategory1">
+                  <div class="input_fields_wrap1">
+                    <div class="append1">
+                      <input type="text" name="urls" class="urls" placeholder="Please paste your media URL here." required>
+                      <input type="hidden" name="ext" class="ext" value="mp3">
+<!--                       <button type="button" class="remove_field1 btn btn-danger"><i class="fa fa-remove"></i> Remove</button>
+ -->                      <p class="errmsg"></p>
+                    </div>
+                  </div>
+                  <hr>
+                <input type="submit" style="display: none;" value="Submit File" id="finalSubmit1">
+              </form>
+              <input type="submit" name="submit" id="checkForm1" class="btn btn-primary" value="SAVE POST">
+              <span id="submitloader1"></span>
+              <span class="errmsg1" id="submiterrmsg1"></span>
+              </div>
+    </div>
+        </div>
+    </div>
+</div>

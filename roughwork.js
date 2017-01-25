@@ -20,3 +20,17 @@ var config = {
   user: '*************',
   password: '*************'
 }
+
+          <span id="selCatSelect">
+            <select class="select">
+              <option value="default">Select Category</option>
+                <% documentscategory.forEach(function(documentscategory){%>
+                  <option value="<%= documentscategory.catname %>"><%= documentscategory.catname %></option>
+                <%})%>
+            </select>
+          </span>
+          <button type="button" id="addCatButton" class="btn">Add New Category</button>
+
+
+          <span id="addCatInput"><input type="text" name="category" id="cat-write" placeholder="Enter category name" autocomplete="off"></span>
+          <button type="button" id="selCatButton" class="btn">Select Category</button>

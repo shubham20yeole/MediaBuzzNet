@@ -11,12 +11,31 @@
     display: table-cell;
     vertical-align: middle;
 }
+.limitchar{
+  width: 10ch;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  color: blue;
+  font-size: 17px;
+  letter-spacing: 1px;
+}
+.limitchar::after { 
+}
+.left{float: left}
+.right{float: right}
+/*.center{text-align: center;}
+*/.notificationDate{font-weight: bold}
+.itemname, .groupname, .notificationDate{color: #337ab7;}
+.itemname:hover, .groupname:hover{color: #c1d7e9;}
 .mediasec{ padding: 2% 2% 2% 2%; background-color: #eeeeef }
-p{cursor: pointer; color: blue; }
+p{cursor: pointer; color: blue; letter-spacing: 1px;}
 .remove_field{ margin-top: -1cm; float: right; }
+.remove_field1{float: right; height: 42px;}
 .append{ padding: 3%; background-color: #f1f1f2; text-align: left; margin: auto;}
 #add-cat, #sel-cat{padding-top: 2%; padding-bottom: 2%; font-weight: bold; cursor: pointer; float: right;}
 .iframepdf, .iframedoc{min-width: 100%; min-height: 600px} 
+.urls{min-width: 100%}
 .iframeimg{max-width: 100%;}
 .iframemovie{
   background:url(../images/load1.gif) center center no-repeat;
@@ -72,6 +91,7 @@ select { position: relative;   font-family: calibri;   width: 350px;  font-size:
    border: 1px dashed #BBB;    text-align: center;   background-color: #DDD;   cursor:pointer;   padding: 9px;
   -webkit-appearance: none;  -moz-appearance: none;  appearance: none;  background: url(/images/drop.jpg) 96% / 15% no-repeat #eee;
 background-size: 33px 33px;} 
+.select1 { width: 100%} 
 
 @media screen and (min-width:0\0) { 
     select {
@@ -112,6 +132,8 @@ background-size: 33px 33px;}
     right:10px;
     cursor: pointer;
 }
-.addPa{padding: 9%;}
+.addPa{padding: 10%;}
+#websitename{color: #a0a0a0; font-size: 2em; font-weight: bold}
 #scroll{font-size: 4em;}
-#scrollText{font-size: 10px}
+#websitename{background-color: black; letter-spacing: 5px; font-size: 10px}
+.hideclass{display: none;}

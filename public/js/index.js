@@ -1,3 +1,4 @@
+var x1x1 = 1;
 $(document).ready(function() {
     $("#postButton").show();
     $("#viewButton").hide();
@@ -5,6 +6,7 @@ $(document).ready(function() {
     $("#uploadPage").hide();
     $("#dropdown-menu").html('appendItems');
     // prepageno nextpageno lastpageno
+    // uploadsinglefile
     var pre = $(".prehide").val();
     var next = $(".nexthide").val();
     var last = $(".lasthide").val();
@@ -20,20 +22,35 @@ $(document).ready(function() {
         $(".paginationmsg").text("Page no: "+next+".")
     }
 });
+// Divs: .uploadfiles .saveurls  .myprojects 
+// Buttons: #postButton #saveurl #myprojects 
+$(document).on("click","#postButton",function() {
+    $(".clickmodal").click();
+    $(".uploadfiles").show();
+    $(".saveurls").hide();
+    $(".myprojects").hide();
+});
 
-$(document).on("click","#postButton, #viewButton",function() {
-    $("#uploadPage").toggle("slow");
-    $("#viewButton").toggle();
-    $("#viewPage").toggle("slow");
-    $("#postButton").toggle();
+$(document).on("click","#saveurl",function() {
+    $(".clickmodal").click();
+    $(".uploadfiles").hide();
+    $(".saveurls").show();
+    $(".myprojects").hide();
+});
+
+$(document).on("click","#myprojects",function() {
+    $(".clickmodal").click();
+    $(".uploadfiles").hide();
+    $(".saveurls").hide();
+    $(".myprojects").show();
 });
 
 $(document).on("click","#checkForm",function() {
    var finalcategory = $("#finalcategory").val();
    var error = checkForm(finalcategory);
    if(error===""){
-    $("#submitloader").html("<span style='color: green'> Validation succeeded </span> <img src='images/load.gif' width='37'>");
-    $("#submiterrmsg").html(error);
+    $("#submitloader").html("<span style='color: green'> </span> <img src='images/load.gif' width='37'>");
+    $("#submiterrmsg").html("");
     $("#finalSubmit").click();
    }else{
     $("#submitloader").html("<br><br><img src='images/cross.jpg' width='27'>");
@@ -41,16 +58,42 @@ $(document).on("click","#checkForm",function() {
    }
 });
 
+
 function checkForm(categoryName){
     task = "MBN_SubmitForm";
     longLatCurrent();
     var stat = "";
     if(categoryName===""){ stat = "<br><br>Err code 1: Please select or add new category.<br>"}
-    $(".file").each(function() {
-        var name = $(this).val();
-        if(name==="") stat = stat + "Err code 2: Please select all files";
-    });
     return stat;
+}
+
+      // $(".lat").each(function() {
+$(document).on("click","#checkForm1",function() {
+    var finalcategory = $("#finalcategory1").val();
+    var error = checkForm1(finalcategory);
+    if(x1x1===0){error = error + "<br>Atleast fill one input field<br>"}
+
+   if(error===""){
+    $("#submitloader1").html("<span style='color: green'> </span> <img src='images/load.gif' width='37'>");
+    $("#submiterrmsg1").html("");
+    $("#finalSubmit1").click();
+   }else{
+    $("#submitloader1").html("<br><br><img src='images/cross.jpg' width='27'>");
+    $("#submiterrmsg1").html(error);
+   }
+});
+
+function checkForm1(categoryName){
+    var errormsg = "";
+    if(categoryName==="") { errormsg = "<br><br>Err code 1: Please select category.<br>"}
+
+    $(".urls").each(function() {
+        var link = $(this).val();
+        if(link===""){
+            errormsg = errormsg + "Err code 2: All input fields are mandatory."; return errormsg;
+        }
+    })
+    return errormsg;
 }
 
 $(document).ready(function() {
@@ -60,16 +103,19 @@ $(document).ready(function() {
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
+
+    var wrapper1        = $(".input_fields_wrap1"); //Fields wrapper
+    var add_button1     = $(".add_field_button1"); //Add button ID
     
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
-        $('#uploadform').prop('action', 'upload');
-
+        if(x===0){$('#uploadform').prop('action', 'uploadsinglefile');}
+        else{$('#uploadform').prop('action', 'upload');}
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
             $(wrapper).append(
-                '<div class="append"><input type="file" name="file" class="file">'+
+                '<div class="append"><input type="file" name="file" class="file" required>'+
                 '<input type="hidden" name="ext" class="ext">'+
                 '<button type="button" class="remove_field btn btn-danger"><i class="fa fa-remove"></i> Remove</button>'+
                 '<p class="errmsg"></p></div>'
@@ -79,6 +125,26 @@ $(document).ready(function() {
     
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
+        if(x===1){$('#uploadform').prop('action', 'uploadsinglefile');}
+        else{$('#uploadform').prop('action', 'upload');}
+    });
+var x1 = 1; //initlal text box count
+    $(add_button1).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x1 < max_fields){ //max input box allowed
+            x1++; 
+            x1x1++;//text box increment
+            $(wrapper1).append(
+                '<div class="append1"><input type="text" name="urls" class="url" placeholder="Please paste your media URL here." required>'+
+                '<input type="hidden" name="ext" class="mp3">'+
+                '<button type="button" class="remove_field1 btn btn-danger"><i class="fa fa-remove"></i> Remove</button>'+
+                '<p class="errmsg"></p></div>'
+            );
+        }
+    });
+    
+    $(wrapper1).on("click",".remove_field1", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x1--; x1x1--;
     })
 });
 
@@ -86,6 +152,11 @@ $(document).ready(function() {
 $(document).on("change",".select",function() { 
     var cate = $(this).val();
     $("#finalcategory").val(cate);
+});
+
+$(document).on("change",".select1",function() { 
+    var cate = $(this).val();
+    $("#finalcategory1").val(cate);
 });
 
 $(document).on("keyup","#cat-write",function() { 
@@ -127,13 +198,14 @@ $(document).on("click","#add-cat",function() {
 $(document).on("click",".cat-p-tag", function(){
     task = "MBN_GroupName";
     longLatCurrent();
-    $("#load").html('<img src="images/load.gif">');
+    $("#load").html('<img src="images/load.gif" width="20" height="20"> Searching<br><br>');
     var catname = $(this).attr("id");
     $.post( "/getItems", { catname: catname})
     .done(function(items){
+        setTimeout(function(){
         var appendItems = "";
         for(i=0;i<items.length;i++){
-            appendItems = '<div><p class="itemname">'+items[i].name+'</p>'+
+            appendItems = '<div><p class="itemname limitchar"><span title="'+items[i].name+'">'+items[i].name+'</span></p>'+
             '<input type="hidden" value="'+items[i].frame+'">'+
             '<input type="hidden" value="'+items[i].datetime+'">'+
             '<input type="hidden" value="'+items[i].category+'">'+
@@ -143,6 +215,7 @@ $(document).on("click",".cat-p-tag", function(){
         }
         $("#items").html(appendItems);
         $("#load").html('');
+        },1500);
     })
 })
 
@@ -152,6 +225,8 @@ $(document).on("click",".itemname", function(){
     var frame = $(this).next('input').val();
     frame = frame.replace("<video controls class='iframemovie'>", "<video controls class='iframemovie' autoplay='true'>");
     frame = frame.replace("<video controls class='iframemusic'>", "<video controls class='iframemusic' autoplay='true'>");
+    frame = frame.replace("<video controls class='iframemusic'>", "<video controls class='iframemusic' autoplay='true'>");
+    frame = frame.replace("min-width: 100%; min-height: 100%'", "min-width: 100%; min-height: 100%' autoplay='true'>");
     var datetime = $(this).next('input').next('input').val();
     var category = $(this).next().next().next().val();
     var name = $(this).next().next().next().next().val();
@@ -163,8 +238,10 @@ $(document).on("click",".itemname", function(){
                bottom: '-100px'    
            }, 500);
         });
-    $("#load1").html('<img src="images/load.gif"  width="50" height="50"> Searching ... ');
+    $("#load1").html('<center><img src="images/hload.gif"> Searching ... </center>');
     setTimeout(function(){
+        $("video").prop('muted', true); //mute
+
         var appendString = frame+'<div class="mediasec"><p><span><b>Category:</b> '+category+' </span>'+
               '<span style="float: right;"><b>Date&Time:</b> '+datetime+'</span></p>'+
               '<p><b>Media Name:</b> '+name+'</p>'+
@@ -172,7 +249,7 @@ $(document).on("click",".itemname", function(){
         $("#iframediv").html(appendString);
         $("#infodiv").html();
         $("#load1").html('');
-    },1500);
+    },2500);
 })
 
 $(document).on("keyup","#search", function(){
@@ -266,6 +343,10 @@ var demoLat = 0;
     }
 
 $(document).ready(function(){
+    $("video").on("play", function (e) {
+        $("video").prop('muted', true);
+        $(this).prop('muted', false); //mute
+    });
     longLatCurrent();
      setTimeout(function(){ 
         if(demoLong==0 && demoLat==0){
@@ -277,3 +358,4 @@ $(document).ready(function(){
         }
     }, 5000);
 })
+

@@ -7,18 +7,18 @@ var path = require('path');
 var expressValidator = require('express-validator');
 var mongojs = require('mongojs')
 var mongodb = require('mongodb')
-var collections = ["users", "blog", "comments", "property", "images", "notification", "bookmark", "messages","timetable", "timetablecategory", "timetablequestion", "resume", "skills", "locations"]
-var db = mongojs('mongodb://*************:*************@*************.mlab.com:*************/*************', collections)
+var collections = ["locations", "documentscategory", "documents"]
+var db = mongojs('mongodb://shubham20.yeole:shubham20.yeole@ds163387.mlab.com:63387/paceteam3', collections)
 var app = express();
 var ObjectId = mongojs.ObjectId;
 var passport = require("passport")
 var JSFtp = require("jsftp");
 var fs = require('fs');
 var config = {
-  host: 'ftp.*************.com',
+  host: 'ftp.byethost7.com',
   port: 21,
-  user: '*************',
-  password: '*************'
+  user: 'b8_19205430',
+  password: 'Shubham4194'
 }
 // View Engine
 app.set('view engine', 'ejs');
@@ -47,7 +47,7 @@ app.get('/', function(req, res){
       db.documents.find({}).skip(0).sort({timestamp: -1}).limit(119).toArray(function (err, allDocuments) {
         db.documents.count(function(err, count) {
         var lastpageno = Math.ceil(count/6);
-        res.render("index.ejs", {allDocuments: allDocuments, documentscategory: documentscategory, lastpageno: lastpageno, documents: documents, count: documents.length, nextpageno: 1, prepageno: 0, status: "status"});
+        res.render("index.ejs", {allDocuments: allDocuments, documentscategory: documentscategory, lastpageno: lastpageno, documents: documents, count: documents.length, nextpageno: 1, prepageno: -1, status: "status"});
         });
       });
     });
@@ -216,7 +216,6 @@ app.post('/upload', function(req, res){
 app.post('/getItems', function(req, res){   
   var catname = req.body.catname;
   db.documents.find({category: catname}, function (err, items) {
-    console.log(items.length);
     res.send(items);    
   });
 });
@@ -224,7 +223,6 @@ app.post('/getItems', function(req, res){
 app.post('/searchDocument', function(req, res) {
   var keyword = req.body.keyword;
    db.documents.find({ name: {'$regex': keyword, '$options' : 'i'} }, function (err, documents) {
-      console.log(documents.length);
     res.send(documents);
   });
 });
@@ -235,7 +233,6 @@ var datetime = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear()+" at 
 var long = req.body.long;
 var lat = req.body.lat;
 var whatdone = req.body.task;
-console.log(long);
 var lat_1 = Number(lat)-0.000203;
 var lat_2 = Number(lat)+0.000203;
 var long_1 = Number(long)-0.00070989999;
@@ -277,7 +274,66 @@ db.locations.findOne({
 });
 
 
+
 app.listen(port, function() {
   console.log('Listening on port ' + port)
 })
 
+app.post('/saveurl', function(req, res){       
+  var urls = req.body.urls;
+  var date = new Date();
+  var datetime = (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear()+" ("+date.getHours()+":"+date.getMinutes()+")";
+  var timestamp = new Date().valueOf();
+  var extension = req.body.ext;
+  var category = req.body.finalcategory1;
+  console.log("Category: "+category);
+  db.documentscategory.findOne({ 'catname': category}, function (err, catObject) {
+    if(catObject==null){
+      var newCategory = { catname: category, size: urls.length, timestamp: timestamp};
+      db.documentscategory.insert(newCategory, function(err, result){if(err){console.log(err);}});
+    }else{
+      var size = catObject.size;
+      db.documentscategory.update({'catname': category},{$set : {"size": size+1}},{upsert:true,multi:false});
+    }
+  });
+    var frame = "";
+    var ext = 'mp3';
+    var thumbnail = getImage();
+    var gif = getGif(); 
+    frame="<video controls style='background:url("+gif+") center center no-repeat;  background-size: 100%; min-width: 100%; min-height: 100%'><source src='"+urls+"' type='video/mp4'></video>";
+       var newDocument = {
+        name: "MediaMusic",
+        frame: frame,
+        link: urls,
+        datetime: datetime,
+        category: category,
+        thumbnail: thumbnail,
+        timestamp: timestamp
+      }
+      db.documents.insert(newDocument, function(err, result){
+        if(err){console.log(err);}
+      });
+  setTimeout(function(){
+    res.redirect("/");
+  },10000);
+});
+
+function getImage() {
+    var x = Math.floor((Math.random() * 4) + 1);
+    var thumbnail = "";
+    if(x===1){thumbnail = "images/audio.jpg"}
+    if(x===2){thumbnail = "images/audio2.jpg"}
+    if(x===3){thumbnail = "images/audio3.jpg"}
+    if(x===4){thumbnail = "images/audio4.jpg"}
+    return thumbnail;
+}
+
+function getGif() {
+    var x = Math.floor((Math.random() * 4) + 1);
+    var gif = "";
+    if(x===1){gif = "images/audiogif.gif"}
+    if(x===2){gif = "images/audio2gif.gif"}
+    if(x===3){gif = "images/audio3gif.gif"}
+    if(x===4){gif = "images/audio4gif.gif"}
+    return gif;
+}
