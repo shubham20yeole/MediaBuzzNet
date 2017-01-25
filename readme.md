@@ -1,6 +1,10 @@
 **Welcome to MediaBuzzNet project.**
 
-****Project URL: http://mediabuzznet.herokuapp.com/****
+**Project URL: http://mediabuzznet.herokuapp.com/**
+
+
+MediaBuzzNet is my personal Web Application build to manage or store my media files using MongoDB database and NodeJS programming language.
+
 
 1. create a folder for your app.
 2. open node cmd and go to that folder.
